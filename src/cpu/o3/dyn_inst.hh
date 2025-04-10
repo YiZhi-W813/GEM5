@@ -419,6 +419,7 @@ class DynInst : public ExecContext, public RefCounted
 
     IssueQue* issueQue = nullptr;
     int issueportid = -1;
+    uint64_t delayed_to_cancel = 0;
 
   public:
     /** Records changes to result? */
