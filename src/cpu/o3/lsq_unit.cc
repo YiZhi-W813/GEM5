@@ -2416,7 +2416,9 @@ LSQUnit::trySendPacket(bool isLoad, PacketPtr data_pkt, bool &bank_conflict, boo
     if (isLoad) {
         bank_conflict = lsq->bankConflictedCheck(data_pkt->req->getVaddr());
     }
-
+    // Record the tick count at the time of sending to let
+    // the subsequent cache understand the request's sending time.
+    data_pkt->sendTick = curTick();
     PacketPtr pkt = data_pkt;
 
     if (!lsq->cacheBlocked() && lsq->cachePortAvailable(isLoad)) {
