@@ -38,7 +38,7 @@ if __name__ == '__m5_main__':
     args = parser.parse_args()
 
     args.xiangshan_system = True
-    args.enable_difftest = True
+    args.enable_difftest = False
     args.enable_riscv_vector = True
 
     # l1cache prefetcher use stream, stride
