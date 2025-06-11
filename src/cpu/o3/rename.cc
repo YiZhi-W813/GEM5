@@ -1335,8 +1335,7 @@ Rename::calcFreeROBEntries(ThreadID tid)
 int
 Rename::calcFreeIQEntries(ThreadID tid)
 {
-
-    return 100;
+    return iew_ptr->dispStall() ? 0 : 100;
 }
 
 int
