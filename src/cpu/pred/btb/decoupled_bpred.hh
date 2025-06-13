@@ -146,6 +146,7 @@ class DecoupledBPUWithBTB : public BPredUnit
         PREDICTION_OUTSTANDING,         // Prediction is ready to be enqueued (replaces `receivedPred`).
     };
     BpuState bpuState;
+    bool skipFirstCycleAfterSquash{false};
 
     Addr s0PC;                  ///< Current PC
     // Addr s0StreamStartPC;

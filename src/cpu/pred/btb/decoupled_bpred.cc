@@ -101,6 +101,7 @@ DecoupledBPUWithBTB::DecoupledBPUWithBTB(const DecoupledBPUWithBTBParams &p)
     commitHistory.resize(historyBits, 0);
     squashing = true;
     bpuState = BpuState::IDLE;
+    skipFirstCycleAfterSquash = false;
 
     lp = LoopPredictor(16, 4, enableLoopDB);
     lb.setLp(&lp);
@@ -564,6 +565,13 @@ DecoupledBPUWithBTB::tick()
         numOverrideBubbles = 0;
         DPRINTF(Override, "Squashing, BPU state updated.\n");
         squashing = false;
+        if (streamQueueFull()) {
+            skipFirstCycleAfterSquash = true;
+            return;
+        }
+    }
+    if (skipFirstCycleAfterSquash) {
+        skipFirstCycleAfterSquash = false;
         return;
     }
 
